@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/maps"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/maps"
     android:background="#000B7E">
 
     <!-- Header -->
@@ -16,7 +16,6 @@
         android:background="#000B7E"
         android:gravity="center_vertical">
 
-        <!-- Header Title -->
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -28,7 +27,6 @@
             android:gravity="center"
             android:layout_marginStart="40dp"/>
 
-        <!-- Notification Icon -->
         <ImageView
             android:id="@+id/notificationIcon"
             android:layout_width="30dp"
@@ -39,17 +37,18 @@
             android:padding="4dp"/>
     </LinearLayout>
 
-    <!-- WebView for Map -->
+    <!-- Map container (below header) -->
     <FrameLayout
         android:id="@+id/mapContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/headerLayout">
 
-        <WebView
-            android:id="@+id/webView"
+        <fragment
+            android:id="@+id/mapFragment"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </FrameLayout>
 
     <!-- Bottom Drawer -->
@@ -63,21 +62,17 @@
             android:id="@+id/bottomDrawer"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-            android:background="@drawable/map_bg">
+            android:background="@drawable/map_bg"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-
-            <!-- Drawer Handle -->
             <View
                 android:id="@+id/drawerHandle"
                 android:layout_width="60dp"
                 android:layout_height="5dp"
-                android:layout_centerInParent="true"
                 android:layout_marginTop="5dp"
-                android:background="@android:color/darker_gray"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/darker_gray"/>
 
-            <!-- Small "Navigations" Text (Positioned Above Icons, Subtle Size) -->
             <TextView
                 android:id="@+id/navigationLabel"
                 android:layout_width="wrap_content"
@@ -87,10 +82,8 @@
                 android:textColor="@android:color/darker_gray"
                 android:gravity="center"
                 android:layout_marginTop="30dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="20dp"/>
+                android:layout_gravity="center_horizontal"/>
 
-            <!-- Drawer Content with Icons and Labels -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,7 +94,6 @@
                 android:layout_marginEnd="30dp"
                 android:layout_marginStart="30dp">
 
-                <!-- Track Icon & Label -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -126,7 +118,6 @@
                         android:layout_marginTop="5dp"/>
                 </LinearLayout>
 
-                <!-- Home Icon & Label -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -152,7 +143,6 @@
                         android:layout_marginTop="5dp"/>
                 </LinearLayout>
 
-                <!-- Records Icon & Label -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -178,7 +168,6 @@
                         android:layout_marginTop="5dp"/>
                 </LinearLayout>
 
-                <!-- Settings Icon & Label -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -206,6 +195,5 @@
             </LinearLayout>
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 
 </RelativeLayout>

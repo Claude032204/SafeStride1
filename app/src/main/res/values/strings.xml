@@ -30,6 +30,7 @@
     <string name="calendar_icon">SafeStride</string>
     <string name="admob_app_id">SafeStride</string>
     <string name="default_web_client_id">9804826858159-mrdv7oiad3ldn9r7g5vmsgg1chc9598r.apps.googleusercontent.com</string>
+    <string name="google_maps_key">AIzaSyChapFLKTIqVWyhhwCcO8YlA0jxSqURajk</string>
 
 
 </resources>
