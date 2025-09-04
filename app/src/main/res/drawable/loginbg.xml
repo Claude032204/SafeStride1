@@ -1,0 +1,6 @@
+<!-- button_border.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#010E3A" /> <!-- Transparent fill -->
+    <stroke android:color="#010E3A" android:width="2dp" /> <!-- Border color and width -->
+    <corners android:radius="30dp" />
+</shape>

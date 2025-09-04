@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colors for Splash Screen -->
+    <color name="white">#FFFFFF</color> <!-- White background -->
+    <color name="black">#000000</color> <!-- Black text/icons -->
+    <color name="dark_blue">#2061DE</color>
+
+    <!-- Primary Colors -->
+    <color name="purple_500">#6200EE</color> <!-- Primary color -->
+    <color name="purple_700">#3700B3</color> <!-- Darker variant of primary -->
+    <color name="teal_200">#03DAC5</color> <!-- Secondary color -->
+    <color name="teal_700">#018786</color> <!-- Darker variant of secondary -->
+
+</resources>

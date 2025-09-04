@@ -1,0 +1,118 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:background="#000B7E">
+
+    <!-- Header -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#000B7E"
+        android:padding="7dp">
+
+        <!-- Back Arrow Icon -->
+        <ImageView
+            android:id="@+id/backArrowIcon"
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/back_arrow"
+            android:src="@drawable/backkk"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
+
+        <!-- Header Title -->
+        <TextView
+            android:id="@+id/headerTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Add Reminder"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:gravity="center" />
+    </RelativeLayout>
+
+    <!-- Content Section -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="#EBFAFF"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#EBFAFF"> <!-- Added margin to push content down -->
+
+            <!-- Reminder Message Input -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <EditText
+                    android:id="@+id/reminderMessageInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                android:hint="Enter reminder message"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:background="#EBFAFF"
+                android:paddingEnd="50dp"
+                    android:layout_margin="10dp"
+                android:textSize="16sp" />
+
+                <!-- Icon on the right side inside EditText -->
+                <ImageView
+                    android:id="@+id/toggleDateTimeButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/datetime"
+                    android:contentDescription="@string/calendar_icon"
+                    android:layout_marginEnd="10dp" />
+            </RelativeLayout>
+
+            <!-- Date Picker (Initially hidden) -->
+            <DatePicker
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"
+                android:background="@drawable/calendar_bg" />
+
+            <!-- Time Picker (Initially hidden) -->
+            <TimePicker
+                android:id="@+id/timePicker"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:timePickerMode="spinner"
+                android:visibility="gone"
+                android:background="@drawable/timestampbg" />
+
+            <!-- Add Reminder Button -->
+            <Button
+                android:id="@+id/addReminderButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:text="Add Reminder"
+                android:background="@drawable/button_bg"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

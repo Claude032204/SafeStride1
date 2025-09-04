@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/assistance"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000B7E"
+    >
+
+    <!-- Header with the Back Arrow -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:padding="7dp"
+        android:visibility="visible">
+
+        <!-- Back Arrow Icon -->
+        <ImageView
+            android:id="@+id/backArrowIcon"
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/back_arrow"
+            android:src="@drawable/backkk"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
+
+        <!-- Header Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="20dp"
+            android:text="Assistance Logs"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:gravity="center" />
+    </LinearLayout>
+
+
+    <!-- RecyclerView for Emergency Logs -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerAssistanceLogs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:layout_marginTop="60dp"
+        />
+
+</RelativeLayout>

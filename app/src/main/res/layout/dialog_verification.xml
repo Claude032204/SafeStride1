@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/closeDialogButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+    android:layout_marginEnd="10dp"
+    android:src="@drawable/close"
+    android:contentDescription="Close Dialog"
+    android:clickable="true"
+    android:focusable="true" />
+
+
+    <TextView
+        android:id="@+id/verificationMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please check your email and verify your account."
+        android:textSize="16sp"
+        android:padding="20dp"/>
+
+    <TextView
+        android:id="@+id/timerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time remaining: 60 sec"
+        android:textSize="14sp"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/confirmVerificationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I have verified my email"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:padding="15dp"/> <!-- Add padding to adjust text without changing button size -->
+
+    <Button
+        android:id="@+id/generateVerificationLinkButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate New Link"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:layout_gravity="center"
+        android:enabled="false"
+        android:padding="15dp"/>
+
+
+</LinearLayout>

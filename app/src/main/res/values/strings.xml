@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">SafeStride</string>
+
+    <string name="logoImageView">App Logo</string>
+    <string name="logo_description">SafeStride Logo</string>
+    <string name="add_device">Add a new device</string>
+    <string name="home_icon">Home Icon</string>
+    <string name="notification_icon">Notification Icon</string>
+    <string name="profile_icon">Profile Icon</string>
+    <string name="back_arrow">Profile Icon</string>
+    <string name="menu_icon">Menu Icon</string>
+    <string name="header_title">SafeStride</string>
+    <string name="features_icon">SafeStride</string>
+    <string name="patient_icon">SafeStride</string>
+    <string name="records_icon">SafeStride</string>
+    <string name="reminder_icon">SafeStride</string>
+    <string name="hospitals_icon">SafeStride</string>
+    <string name="setting_icon">SafeStride</string>
+    <string name="patient_photo">SafeStride</string>
+    <string name="add_note">SafeStride</string>
+    <string name="add_report">SafeStride</string>
+    <string name="add_reminder">SafeStride</string>
+    <string name="right_arrow">SafeStride</string>
+    <string name="logo_desc">SafeStride</string>
+    <string name="clear_icon">SafeStride</string>
+    <string name="save">SafeStride</string>
+    <string name="delete">SafeStride</string>
+    <string name="phone_icon">SafeStride</string>
+    <string name="track_icon">SafeStride</string>
+    <string name="calendar_icon">SafeStride</string>
+    <string name="admob_app_id">SafeStride</string>
+    <string name="default_web_client_id">9804826858159-mrdv7oiad3ldn9r7g5vmsgg1chc9598r.apps.googleusercontent.com</string>
+
+
+</resources>

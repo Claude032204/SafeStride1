@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="@android:color/black">
+
+    <!-- Emergency Button (Triangle Shape) -->
+    <FrameLayout
+        android:id="@+id/emergencyButton"
+        android:layout_width="145dp"
+        android:layout_height="95dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="145dp"
+            android:layout_height="100dp"
+            android:src="@drawable/triangle_shape"
+            android:contentDescription="@string/emergency_button_shape" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:text="@string/emergency"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:paddingBottom="8dp" />
+    </FrameLayout>
+
+    <!-- Spacer -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+
+    <!-- Assistance Button (Rounded Rectangle) -->
+    <LinearLayout
+        android:id="@+id/assistanceButton"
+        android:layout_width="135dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_rectangle"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/assistance"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

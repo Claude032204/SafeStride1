@@ -1,0 +1,179 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/records"
+    android:background="#000B7E">
+
+    <!-- Header with the Back Arrow -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:padding="7dp"
+        android:visibility="visible">
+
+        <!-- Back Arrow Icon -->
+        <ImageView
+            android:id="@+id/backArrowIcon"
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/back_arrow"
+            android:src="@drawable/backkk"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
+
+        <!-- Header Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="20dp"
+            android:text="Records"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="1dp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:id="@+id/logsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/featuresText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Logs And Notes"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="#FEFEFF"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <!-- Emergency Logs Card (Square) -->
+            <LinearLayout
+                android:id="@+id/cardEmergencyLogs"
+                android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:padding="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/emerg_card"
+            android:elevation="4dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Emergency Logs"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:paddingBottom="5dp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View all emergency events."
+                android:textSize="14sp"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <!-- Assistance Logs Card (Square) -->
+        <LinearLayout
+            android:id="@+id/cardAssistanceLogs"
+            android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/assis_card"
+        android:elevation="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="Assistance Logs"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View all assistance requests."
+            android:textSize="14sp"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <!-- Notes Card (Square) -->
+    <LinearLayout
+        android:id="@+id/cardNotes"
+        android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:padding="30dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/note_bg"
+    android:elevation="4dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Notes"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="5dp"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View and manage your notes."
+        android:textSize="14sp"
+        android:textColor="@android:color/white" />
+</LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
+
+    </RelativeLayout>

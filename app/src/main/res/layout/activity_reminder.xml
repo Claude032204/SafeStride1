@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/reminder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000B7E">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:padding="7dp"
+        android:visibility="visible">
+
+        <!-- Back Arrow Icon -->
+        <ImageView
+            android:id="@+id/backArrowIcon"
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/back_arrow"
+            android:src="@drawable/backkk"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
+    </LinearLayout>
+
+    <!-- Notification Title -->
+    <TextView
+        android:id="@+id/notificationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginBottom="20dp"
+        android:text="Reminder"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white" />
+
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="50dp"
+        android:scrollbars="vertical">
+
+        <!-- Content Container -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#000B7E"
+        android:padding="10dp">
+
+        <!-- Date Text -->
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:text="February 25"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
+
+        <!-- Today's Reminder Text -->
+        <TextView
+            android:id="@+id/todaysReminderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:text="Today's Reminder"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
+
+        <!-- Calendar View -->
+        <android.widget.CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/calendar_bg" />
+
+        <!-- Text and Line for Tasks and Schedules -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <!-- Text for Tasks and Schedules -->
+            <TextView
+                android:id="@+id/tasksAndSchedulesTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tasks and Schedules"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="10dp"/>
+
+            <!-- Divider Line -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                android:background="@android:color/white"/>
+        </LinearLayout>
+
+        <!-- RecyclerView for Reminders -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerReminders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:scrollbars="vertical" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+
+    <!-- Floating Action Button to Add Reminder -->
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+android:id="@+id/fabAddReminder"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="bottom|end"
+android:layout_margin="16dp"
+android:src="@drawable/add"
+android:contentDescription="@string/add_reminder"
+app:tint="#001571"
+android:backgroundTint="@color/white"
+android:layout_alignParentBottom="true"
+android:layout_alignParentEnd="true"
+android:layout_alignParentRight="true" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>

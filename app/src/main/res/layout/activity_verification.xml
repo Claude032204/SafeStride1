@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/verify"
+    android:background="#000B7E">
+
+    <!-- Visible Header with Back Arrow -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:padding="7dp"
+        android:visibility="visible"
+        android:id="@+id/header">
+
+        <!-- Back Arrow Icon -->
+        <ImageView
+            android:id="@+id/backArrowIcon"
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/back_arrow"
+            android:src="@drawable/backkk"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
+    </LinearLayout>
+
+    <!-- Logo Image below the header, centered -->
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="250dp"
+        android:layout_height="220dp"
+        android:layout_below="@id/header"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logoo"
+        android:contentDescription="@string/logo_desc"
+        android:layout_marginTop="30dp"/>
+
+    <!-- "Verify Email Address" text below the logo -->
+    <TextView
+        android:id="@+id/verifyEmailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verify Email Address"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_below="@id/logoImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <!-- "Verification sent to: (email)" text below the "Verify Email Address" text -->
+    <TextView
+        android:id="@+id/verificationSentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verification sent to: email@example.com"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_below="@id/verifyEmailText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:textAlignment="center" />
+
+    <!-- Confirm Code Button below the verification code input -->
+    <Button
+        android:id="@+id/confirmCodeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/verificationSentText"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginEnd="90dp"
+        android:text="Confirm"
+        android:background="@drawable/loginbg"
+        android:textColor="@android:color/white"
+        android:padding="1dp" />
+
+    <!-- Timer and Resend Confirmation Code Text -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/confirmCodeButton"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal">
+
+        <!-- Timer -->
+        <TextView
+            android:id="@+id/timerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01:00"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginEnd="10dp" />
+
+        <!-- Resend Confirmation Code Text -->
+        <TextView
+            android:id="@+id/resendCodeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resend Verification Link"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginStart="10dp" />
+    </LinearLayout>
+
+</RelativeLayout>

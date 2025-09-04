@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/patient"
+    android:background="#000B7E">
+
+    <!-- Header with the Back Arrow -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:padding="7dp"
+        android:visibility="visible">
+
+        <!-- Back Arrow Icon -->
+        <ImageView
+            android:id="@+id/backArrowIcon"
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/back_arrow"
+            android:src="@drawable/backkk"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
+    </LinearLayout>
+
+    <!-- "Profile" Text -->
+    <TextView
+        android:id="@+id/profileText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Patient's Profile"
+        android:textColor="@android:color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Profile Icon (ShapeableImageView) -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profileIcon"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/profileee"
+        android:contentDescription="@string/profile_icon" />
+
+    <!-- Text to Add Profile -->
+    <TextView
+        android:id="@+id/fullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Full Name"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_below="@id/profileIcon"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/fullName"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:background="@android:color/white" />
+
+    <!-- ScrollView for Forms -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/line"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="1dp">
+
+        <!-- LinearLayout that contains all the form fields and floating card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Floating Card in the Center of the Screen -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/floatingCard"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:backgroundTint="@color/white"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Full Name Field -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Full Name"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="4dp" />
+
+                    <EditText
+                        android:id="@+id/fullNameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Full Name"
+                        android:textColor="@color/black"
+                        android:textColorHint="#6B6B6B"
+                        android:textSize="16sp"
+                        android:padding="10dp" />
+
+                    <!-- Birthdate Field with Calendar Icon -->
+                    <TextView
+                        android:text="Birthdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="4dp" />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <!-- Birthdate Input -->
+                        <EditText
+                            android:id="@+id/birthdateEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Select Birthdate"
+                            android:textColor="@color/black"
+                            android:textColorHint="#6B6B6B"
+                            android:textSize="16sp"
+                            android:padding="10dp"
+                            android:focusable="false"
+                            android:paddingEnd="40dp" />
+
+                        <!-- Calendar Icon inside the Field (Right Side) -->
+                        <ImageView
+                            android:id="@+id/calendarIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="17dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/calendar"
+                            android:contentDescription="Calendar Icon"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </RelativeLayout>
+
+
+                    <!-- Gender Field -->
+                    <TextView
+                        android:text="Gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="4dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <!-- Gender Input (AutoCompleteTextView) -->
+                        <AutoCompleteTextView
+                            android:id="@+id/genderAutoCompleteTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Select Gender"
+                            android:textColor="@color/black"
+                            android:textColorHint="#6B6B6B"
+                            android:textSize="16sp"
+                            android:padding="10dp"
+                            android:focusable="true"
+                        android:paddingEnd="40dp" /> <!-- Set your custom dropdown icon -->
+
+                        <!-- Dropdown Icon inside the Field (Right Side) -->
+                        <ImageView
+                            android:id="@+id/dropdownIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="17dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/dropdown"
+                            android:contentDescription="Dropdown Icon"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </RelativeLayout>
+
+
+
+
+                    <!-- Blood Type Field -->
+                    <TextView
+                        android:text="Blood Type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="4dp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <!-- Blood Type Input (AutoCompleteTextView) -->
+                        <AutoCompleteTextView
+                            android:id="@+id/bloodTypeAutoCompleteTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Select Blood Type"
+                            android:textColor="@color/black"
+                            android:textColorHint="#6B6B6B"
+                            android:textSize="16sp"
+                            android:padding="10dp"
+                            android:focusable="false"
+                            android:paddingEnd="40dp" /> <!-- Set your custom dropdown icon -->
+
+                        <!-- Dropdown Icon inside the Field (Right Side) -->
+                        <ImageView
+                            android:id="@+id/bloodTypeDropdownIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="17dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/dropdown"
+                            android:contentDescription="Dropdown Icon"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </RelativeLayout>
+
+
+                    <!-- Condition Field -->
+                    <TextView
+                        android:text="Condition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="4dp" />
+
+                    <EditText
+                        android:id="@+id/conditionEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Condition"
+                        android:textColor="@color/black"
+                        android:textColorHint="#6B6B6B"
+                        android:textSize="16sp"
+                        android:padding="10dp" />
+
+                    <!-- Mobility Status Field -->
+                    <TextView
+                        android:text="Mobility Status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="4dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <!-- Mobility Status Input (AutoCompleteTextView) -->
+                        <AutoCompleteTextView
+                            android:id="@+id/mobilityStatusAutoCompleteTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Select Mobility Status"
+                            android:textColor="@color/black"
+                            android:textColorHint="#6B6B6B"
+                            android:textSize="16sp"
+                            android:padding="10dp"
+                            android:focusable="false"
+                            android:paddingEnd="40dp" /> <!-- Set your custom dropdown icon -->
+
+                        <!-- Dropdown Icon inside the Field (Right Side) -->
+                        <ImageView
+                            android:id="@+id/mobilityStatusDropdownIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="17dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/dropdown"
+                            android:contentDescription="Dropdown Icon"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </RelativeLayout>
+
+                    <!-- Guardian Name or Contact Field -->
+                    <TextView
+                        android:text="Guardian Name or Contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="4dp" />
+
+                    <EditText
+                        android:id="@+id/guardianEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter Guardian Name or Contact"
+                        android:textColor="@color/black"
+                        android:textColorHint="#6B6B6B"
+                        android:textSize="16sp"
+                        android:padding="10dp" />
+
+                    <!-- Save Button -->
+                    <Button
+                        android:id="@+id/saveButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#041743"
+                        android:text="Save"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:padding="10dp"
+                        android:layout_marginTop="16dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Additional form content goes here if needed -->
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

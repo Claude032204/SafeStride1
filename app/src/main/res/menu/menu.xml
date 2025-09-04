@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Menu Items -->
+    <group android:id="@+id/nav_main_section" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/homee"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/settingss"
+            android:title="Settings" />
+        <item
+            android:id="@+id/nav_maps"
+            android:icon="@drawable/mapss"
+            android:title="Maps" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/aboutt"
+            android:title="About" />
+    </group>
+
+    <!-- Divider for separating Sign Out -->
+    <group android:id="@+id/nav_sign_out_group">
+        <item
+            android:id="@+id/nav_sign_out"
+            android:icon="@drawable/logoutt"
+            android:title="Sign Out"
+            android:layout_gravity="bottom" />
+    </group>
+
+</menu>

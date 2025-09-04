@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">SafeStride</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">From the Square world,\nHello, %1$s!</string>
+    <string name="emergency">Emergency</string>
+    <string name="emergency_button_shape">Emergency Button Shape</string>
+    <string name="assistance">Assistance</string>
+    <string name="scanning_for_devices">Scanning for Devices...</string>
+    <string name="welcome_title">Welcome to\nSafeStride!</string>
+    <string name="welcome_description">Your journey to safety starts here.\n\nSafeStride is designed to watch your back.</string>
+    <string name="guidance_warning">Should be guided by a parent or guardian\nwhen using this app.</string>
+    <string name="red_button_info">Need help now?\nTap the RED button when you are in danger or distress.</string>
+    <string name="yellow_button_info">Need a hand?\nPress the YELLOW button for everyday assistance.</string>
+    <string name="footer_message">Stay safe, stay connected with SafeStride.</string>
+    <string name="button_ok">OK</string>
+    <string name="red_button_icon">Red button icon for emergency</string>
+    <string name="yellow_button_icon">Yellow button icon for assistance</string>
+
+</resources>

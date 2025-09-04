@@ -1,0 +1,242 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/signup"
+    android:background="#000B7E">
+
+    <!-- Visible Header with Back Arrow -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:padding="7dp"
+        android:visibility="visible"
+        android:id="@+id/header">
+
+        <!-- Back Arrow Icon -->
+        <ImageView
+            android:id="@+id/backArrowIcon"
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/back_arrow"
+            android:src="@drawable/backkk"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
+    </LinearLayout>
+
+    <!-- Scrollable content -->
+    <ScrollView
+        android:id="@+id/scrollsign"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <!-- Nested LinearLayout to hold all the content inside the ScrollView -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- "Create" text -->
+            <TextView
+                android:id="@+id/createText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="65sp"
+                android:textStyle="bold"
+                android:layout_marginTop="60dp"
+                android:layout_marginStart="20dp" />
+
+            <!-- "Account" text below "Create" text -->
+            <TextView
+                android:id="@+id/accountText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="65sp"
+                android:textStyle="bold"
+                android:layout_marginTop="1dp"
+                android:layout_marginStart="20dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp">
+
+                <EditText
+                    android:id="@+id/usernameField"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Username"
+                    android:padding="10dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="#4A4949"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/usernameIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/userrrr"
+                android:contentDescription="Username Icon"
+                android:layout_gravity="center_vertical"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp">
+
+                <EditText
+                    android:id="@+id/emailField"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Email"
+                    android:padding="10dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="#4A4949"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/emailIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/mail"
+                android:contentDescription="Email Icon"
+                android:layout_gravity="center_vertical"/>
+            </RelativeLayout>
+
+
+            <!-- Password Field with Eye Icon inside the form -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp">
+
+                <EditText
+                    android:id="@+id/passwordField"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Password"
+                    android:padding="10dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="#4A4949"
+                    android:textSize="16sp"
+                    android:inputType="textPassword" />
+
+                <!-- Eye Icon for toggling password visibility -->
+                <ImageView
+                    android:id="@+id/eyeIconPassword"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/eyeclosed"
+                    android:contentDescription="Eye Icon"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </RelativeLayout>
+
+            <!-- Password Requirements Text, outside the RelativeLayout -->
+            <TextView
+                android:id="@+id/passwordRequirementsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Password must contain at least 8 characters, including 1 uppercase letter, 1 lowercase letter, 1 numeric character, and 1 special character."
+                android:textColor="#007D87"
+                android:visibility="gone"
+                android:textSize="10sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"/>
+
+            <!-- Confirm Password Field with Eye Icon inside the form -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp">
+
+                <EditText
+                    android:id="@+id/confirmPasswordField"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Confirm Password"
+                    android:padding="10dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="#4A4949"
+                    android:textSize="16sp"
+                    android:inputType="textPassword" />
+
+                <!-- Eye Icon for toggling confirm password visibility -->
+                <ImageView
+                    android:id="@+id/eyeIconConfirmPassword"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/eyeclosed"
+                    android:contentDescription="Eye Icon"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/signupButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="95dp"
+                android:layout_marginEnd="95dp"
+                android:text="Sign Up"
+                android:background="@drawable/button_border"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:padding="1dp"
+                android:onClick="onSignUpClick"/>  <!-- Set the onClick function -->
+
+
+            <!-- "Already have an account? Log In" text below the Sign Up button -->
+            <TextView
+                android:id="@+id/loginText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? Log In"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

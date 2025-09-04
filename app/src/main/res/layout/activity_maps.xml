@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/maps"
+    android:background="#000B7E">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:padding="7dp"
+        android:background="#000B7E"
+        android:gravity="center_vertical">
+
+        <!-- Header Title -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Maps"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_marginStart="40dp"/>
+
+        <!-- Notification Icon -->
+        <ImageView
+            android:id="@+id/notificationIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/notification"
+            android:contentDescription="Notifications"
+            android:padding="4dp"/>
+    </LinearLayout>
+
+    <!-- WebView for Map -->
+    <FrameLayout
+        android:id="@+id/mapContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headerLayout">
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+
+    <!-- Bottom Drawer -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/bottomDrawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true">
+
+        <FrameLayout
+            android:id="@+id/bottomDrawer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:background="@drawable/map_bg">
+
+
+            <!-- Drawer Handle -->
+            <View
+                android:id="@+id/drawerHandle"
+                android:layout_width="60dp"
+                android:layout_height="5dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                android:layout_gravity="center_horizontal"/>
+
+            <!-- Small "Navigations" Text (Positioned Above Icons, Subtle Size) -->
+            <TextView
+                android:id="@+id/navigationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Navigations"
+                android:textSize="25sp"
+                android:textColor="@android:color/darker_gray"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20dp"/>
+
+            <!-- Drawer Content with Icons and Labels -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="16dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp">
+
+                <!-- Track Icon & Label -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginEnd="10dp">
+
+                    <ImageView
+                        android:id="@+id/trackIcon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/track"
+                        android:contentDescription="@string/track_icon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Track"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+
+                <!-- Home Icon & Label -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp">
+
+                    <ImageView
+                        android:id="@+id/homeIcon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/home"
+                        android:contentDescription="@string/home_icon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Home"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+
+                <!-- Records Icon & Label -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp">
+
+                    <ImageView
+                        android:id="@+id/recordIcon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/record"
+                        android:contentDescription="@string/records_icon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Records"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+
+                <!-- Settings Icon & Label -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginStart="20dp">
+
+                    <ImageView
+                        android:id="@+id/settingsIcon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/setting"
+                        android:contentDescription="@string/setting_icon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Settings"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</RelativeLayout>

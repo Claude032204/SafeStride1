@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#000B7E"/> <!-- Your chosen color for the bottom half-circle -->
+    <corners android:bottomLeftRadius="200dp" android:bottomRightRadius="200dp"/>
+</shape>

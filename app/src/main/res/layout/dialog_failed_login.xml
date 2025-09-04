@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:padding="20dp">
+
+    <!-- Warning Text -->
+    <TextView
+        android:id="@+id/warningText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log In failed. Please make sure you put the right credentials. Your account will be lock after another failed attempt"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp" />
+
+    <!-- Retry Button -->
+    <Button
+        android:id="@+id/retryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retry"
+        android:layout_below="@id/warningText"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/loginbg"
+        android:textColor="@android:color/white"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"/>
+
+    <!-- Forgot Password Button -->
+    <Button
+        android:id="@+id/forgotPasswordButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:layout_below="@id/retryButton"
+        android:background="@drawable/loginbg"
+        android:textColor="@android:color/white"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"/>
+
+</RelativeLayout>
