@@ -19,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -34,14 +35,16 @@ import kotlinx.coroutines.launch
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
-    private var pwdMarker: Marker? = null
+
+    // ✅ separate marker explicitly for the watch
+    private var watchMarker: Marker? = null
 
     private val db by lazy { FirebaseFirestore.getInstance() }
     private val pwdId by lazy { intent.getStringExtra("PWD_ID") ?: "pwd1" }
-    private val pwdDocRef by lazy { db.collection("pwds").document(pwdId) }
-    private var pwdListener: ListenerRegistration? = null
+    private val watchDocRef by lazy { db.collection("pwds").document(pwdId) }
+    private var watchListener: ListenerRegistration? = null
 
-    // Demo movement for tomorrow’s presentation
+    // Demo path for presentation (optional)
     private val demoPath = listOf(
         LatLng(14.59950, 120.98420),
         LatLng(14.60080, 120.98520),
@@ -62,7 +65,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
-        // Handle system bar insets on your root layout
         val mapsLayout = findViewById<RelativeLayout>(R.id.maps)
         ViewCompat.setOnApplyWindowInsetsListener(mapsLayout) { v, insets ->
             val sys = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -70,16 +72,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             insets
         }
 
-        // Bottom drawer (keep your existing layout)
         val bottomDrawer: View = findViewById(R.id.bottomDrawer)
         BottomSheetBehavior.from(bottomDrawer).state = BottomSheetBehavior.STATE_EXPANDED
 
-        // Map fragment
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        // Pad map so controls aren’t covered by the drawer
         bottomDrawer.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 bottomDrawer.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -87,13 +86,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
 
-        // Your existing icons
         findViewById<ImageView>(R.id.notificationIcon).setOnClickListener {
             startActivity(Intent(this, Notification::class.java))
         }
         findViewById<View>(R.id.trackIcon).setOnClickListener {
-            // Toggle simulated movement for demo
-            if (simulateJob == null) startSimulation() else stopSimulation()
+            // If you’re not simulating, recentre on the watch if we have it.
+            if (simulateJob == null && watchMarker != null) {
+                centerOnWatch()
+            } else if (simulateJob == null) {
+                startSimulation()
+            } else {
+                stopSimulation()
+            }
         }
         findViewById<View>(R.id.homeIcon).setOnClickListener {
             startActivity(Intent(this, Dashboard::class.java))
@@ -108,13 +112,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        enableMyLocation() // optional blue dot
+        enableMyLocation() // blue dot for caregiver
 
         // Start at a sensible camera; will jump once Firestore updates arrive
         val initial = LatLng(14.5995, 120.9842)
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(initial, 13f))
 
-        startPwdRealtimeListener()
+        startWatchRealtimeListener()
     }
 
     private fun enableMyLocation() {
@@ -127,33 +131,45 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun startPwdRealtimeListener() {
-        // Expect Firestore fields: lat(Number), lng(Number)
-        pwdListener = pwdDocRef.addSnapshotListener(this) { snap, _ ->
+    // ✅ Listen to the watch doc and move a distinct "Watch" marker
+    private fun startWatchRealtimeListener() {
+        watchListener = watchDocRef.addSnapshotListener(this) { snap, _ ->
             val lat = snap?.getDouble("lat")
             val lng = snap?.getDouble("lng")
             if (lat != null && lng != null) {
                 val pos = LatLng(lat, lng)
-                if (pwdMarker == null) {
-                    pwdMarker = map.addMarker(MarkerOptions().position(pos).title("PWD"))
+                if (watchMarker == null) {
+                    watchMarker = map.addMarker(
+                        MarkerOptions()
+                            .position(pos)
+                            .title("Watch")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                    )
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 16f))
                 } else {
-                    pwdMarker!!.position = pos
+                    watchMarker!!.position = pos
                     map.animateCamera(CameraUpdateFactory.newLatLng(pos))
                 }
             }
         }
     }
 
+    private fun centerOnWatch() {
+        watchMarker?.position?.let { pos ->
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 17f))
+            Toast.makeText(this, "Centered on watch", Toast.LENGTH_SHORT).show()
+        } ?: Toast.makeText(this, "No watch location yet", Toast.LENGTH_SHORT).show()
+    }
+
     // ---------- DEMO: simulate movement by writing to Firestore ----------
     private fun startSimulation() {
         if (simulateJob != null) return
-        Toast.makeText(this, "Simulating PWD movement…", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Simulating watch movement…", Toast.LENGTH_SHORT).show()
         simulateJob = lifecycleScope.launch {
             var i = 0
             while (true) {
                 val p = demoPath[i % demoPath.size]
-                pwdDocRef.set(
+                watchDocRef.set(
                     mapOf(
                         "lat" to p.latitude,
                         "lng" to p.longitude,
@@ -175,7 +191,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     // --------------------------------------------------------------------
 
     override fun onDestroy() {
-        pwdListener?.remove()
+        watchListener?.remove()
         simulateJob?.cancel()
         super.onDestroy()
     }

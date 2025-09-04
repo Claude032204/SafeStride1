@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -13,14 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import java.text.SimpleDateFormat
-import java.util.*
 
 class AssistanceLogs : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AssistanceLogsAdapter
-    private val logsList = mutableListOf<AssistanceLogModel>() // Logs list
+    private val logsList = mutableListOf<AssistanceLogModel>()
     private lateinit var db: FirebaseFirestore
     private var userId: String? = null
 
@@ -31,7 +28,7 @@ class AssistanceLogs : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        // 🔹 Apply Window Insets listener for proper layout adjustment
+        // Insets handling
         val assistanceLayout = findViewById<RelativeLayout>(R.id.assistance)
         ViewCompat.setOnApplyWindowInsetsListener(assistanceLayout) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -39,26 +36,24 @@ class AssistanceLogs : AppCompatActivity() {
             insets
         }
 
-        // 🔹 Back Arrow Click Listener
+        // Back button
         findViewById<View>(R.id.backArrowIcon).setOnClickListener {
-            finish() // Close the activity
+            finish()
         }
 
-        // 🔹 RecyclerView setup
+        // RecyclerView setup
         recyclerView = findViewById(R.id.recyclerAssistanceLogs)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         adapter = AssistanceLogsAdapter(logsList)
         recyclerView.adapter = adapter
 
-        // 🔹 Load assistance logs from Firestore
+        // Load logs
         loadAssistanceLogsFromFirestore()
     }
 
-    // 🔹 Fetch assistance logs from Firestore in real-time
     private fun loadAssistanceLogsFromFirestore() {
         if (userId != null) {
-            db.collection("profiles").document(userId!!)
+            db.collection("notifications").document(userId!!)
                 .collection("assistanceLogs")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .addSnapshotListener { snapshots, e ->
@@ -73,16 +68,16 @@ class AssistanceLogs : AppCompatActivity() {
                             val log = AssistanceLogModel(
                                 id = document.id,
                                 timestamp = document.getLong("timestamp") ?: 0,
-                                status = document.getString("status") ?: "Unknown",
+                                status = document.getString("status") ?: "Assistance Alert!",
                                 location = document.getString("location") ?: "Unknown",
                                 resolved = document.getBoolean("resolved") ?: false
                             )
                             newLogsList.add(log)
                         }
 
-                        // 🔹 Update UI only if data has changed
+                        // Sort newest first before updating adapter
                         logsList.clear()
-                        logsList.addAll(newLogsList)
+                        logsList.addAll(newLogsList.sortedByDescending { it.timestamp })
                         adapter.notifyDataSetChanged()
                     }
                 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -13,14 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import java.text.SimpleDateFormat
-import java.util.*
 
 class EmergencyLogs : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: EmergencyLogsAdapter
-    private val logsList = mutableListOf<EmergencyLogModel>() // List of logs
+    private val logsList = mutableListOf<EmergencyLogModel>()
     private lateinit var db: FirebaseFirestore
     private var userId: String? = null
 
@@ -31,7 +28,7 @@ class EmergencyLogs : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        // 🔹 Apply Window Insets listener for proper layout adjustment
+        // Insets handling
         val emergencyLayout = findViewById<RelativeLayout>(R.id.emergency)
         ViewCompat.setOnApplyWindowInsetsListener(emergencyLayout) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -39,26 +36,24 @@ class EmergencyLogs : AppCompatActivity() {
             insets
         }
 
-        // 🔹 Back Arrow Click Listener
+        // Back button
         findViewById<View>(R.id.backArrowIcon).setOnClickListener {
-            finish() // Close the activity
+            finish()
         }
 
-        // 🔹 RecyclerView setup
+        // RecyclerView setup
         recyclerView = findViewById(R.id.recyclerEmergencyLogs)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         adapter = EmergencyLogsAdapter(logsList)
         recyclerView.adapter = adapter
 
-        // 🔹 Load emergency logs from Firestore
+        // Load logs
         loadEmergencyLogsFromFirestore()
     }
 
-    // 🔹 Fetch emergency logs from Firestore in real-time
     private fun loadEmergencyLogsFromFirestore() {
         if (userId != null) {
-            db.collection("profiles").document(userId!!)
+            db.collection("notifications").document(userId!!)
                 .collection("emergencyLogs")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .addSnapshotListener { snapshots, e ->
@@ -73,25 +68,19 @@ class EmergencyLogs : AppCompatActivity() {
                             val log = EmergencyLogModel(
                                 id = document.id,
                                 timestamp = document.getLong("timestamp") ?: 0,
-                                status = document.getString("status") ?: "Unknown",
+                                status = document.getString("status") ?: "Emergency Alert!",
                                 location = document.getString("location") ?: "Unknown",
                                 resolved = document.getBoolean("resolved") ?: false
                             )
                             newLogsList.add(log)
                         }
 
-                        // 🔹 Update UI only if data has changed
+                        // Sort newest first before updating adapter
                         logsList.clear()
-                        logsList.addAll(newLogsList)
+                        logsList.addAll(newLogsList.sortedByDescending { it.timestamp })
                         adapter.notifyDataSetChanged()
                     }
                 }
         }
-    }
-
-    // 🔹 Format timestamp into a readable date/time string
-    private fun formatTimestamp(timestamp: Long): String {
-        val sdf = SimpleDateFormat("hh:mm a, MMM dd yyyy", Locale.getDefault())
-        return sdf.format(Date(timestamp))
     }
 }

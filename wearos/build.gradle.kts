@@ -9,7 +9,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.safestride.wearos"
+        applicationId = "com.safestride.safestride"
         minSdk = 30
         targetSdk = 35
         versionCode = 1
@@ -93,5 +93,8 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1")
+
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4") // for lifecycleScope
+
 
 }

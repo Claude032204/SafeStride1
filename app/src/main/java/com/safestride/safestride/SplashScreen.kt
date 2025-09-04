@@ -1,19 +1,35 @@
 package com.safestride.safestride
 
-import android.animation.ObjectAnimator
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import android.animation.ObjectAnimator
+import android.view.animation.BounceInterpolator
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import android.view.animation.BounceInterpolator
 
 class SplashScreen : AppCompatActivity() {
+
+    // ask for POST_NOTIFICATIONS on Android 13+
+    private val askNotifPermission = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        // You could show a toast if denied; either way, proceed.
+        if (!granted) {
+            Toast.makeText(this, "Notifications may be limited until you enable them.", Toast.LENGTH_SHORT).show()
+        }
+        goNext()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,36 +37,48 @@ class SplashScreen : AppCompatActivity() {
 
         val landingLayout = findViewById<RelativeLayout>(R.id.splash)
         ViewCompat.setOnApplyWindowInsetsListener(landingLayout) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            val sysBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(sysBars.left, sysBars.top, sysBars.right, sysBars.bottom)
             insets
         }
 
-        // Find the TextView for "SafeStride" and ImageView for the logo
+        // Animations (same as your current file)
         val splashText = findViewById<TextView>(R.id.splash_text)
         val splashLogo = findViewById<ImageView>(R.id.splash_logo)
 
-        // Bounce animation for SafeStride text from the bottom to the middle
-        val bounceTextAnimator = ObjectAnimator.ofFloat(splashText, "translationY", 1000f, 0f)
-        bounceTextAnimator.duration = 1000  // Duration of the animation (1 second)
-        bounceTextAnimator.interpolator = BounceInterpolator()  // Bounce effect
+        ObjectAnimator.ofFloat(splashText, "translationY", 1000f, 0f).apply {
+            duration = 1000
+            interpolator = BounceInterpolator()
+        }.start()
 
-        // Bounce animation for Logo from the bottom to the middle
-        val bounceLogoAnimator = ObjectAnimator.ofFloat(splashLogo, "translationY", 1000f, 0f)
-        bounceLogoAnimator.duration = 1000  // Duration of the animation (1 second)
-        bounceLogoAnimator.interpolator = BounceInterpolator()  // Bounce effect
+        ObjectAnimator.ofFloat(splashLogo, "translationY", 1000f, 0f).apply {
+            duration = 1000
+            interpolator = BounceInterpolator()
+        }.start()
 
-        // Start both animations
-        bounceTextAnimator.start()
-        bounceLogoAnimator.start()
+        // After a short delay, request permission (or proceed if already granted / not needed)
+        Handler(Looper.getMainLooper()).postDelayed({
+            maybeRequestNotificationPermission()
+        }, 1200) // trigger after animations finish
+    }
 
-        Handler().postDelayed({
-            // After the delay, start the LandingPageActivity
-            val intent = Intent(this@SplashScreen, LandingPage::class.java)
-            startActivity(intent)
+    private fun maybeRequestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= 33) {
+            val perm = Manifest.permission.POST_NOTIFICATIONS
+            if (checkSelfPermission(perm) != PackageManager.PERMISSION_GRANTED) {
+                askNotifPermission.launch(perm)
+                return
+            }
+        }
+        // pre-Android 13 or already granted
+        goNext()
+    }
 
-            // Close SplashActivity to prevent going back to it
+    private fun goNext() {
+        // Small pause so the splash doesn’t instantly disappear
+        Handler(Looper.getMainLooper()).postDelayed({
+            startActivity(Intent(this@SplashScreen, LandingPage::class.java))
             finish()
-        }, 5000)  // 5000 milliseconds = 5 seconds
+        }, 300) // feel free to change to 0 if you want it immediate
     }
 }

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permissions -->
+    <!-- (you already had these) -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -14,8 +14,9 @@
         tools:targetApi="s" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
 
-    <!-- Make sure it’s recognized as a Wear OS app -->
     <uses-feature android:name="android.hardware.type.watch" />
 
     <application
@@ -25,17 +26,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SafeStride">
 
-        <!-- Required for Wear OS apps -->
         <uses-library
             android:name="com.google.android.wearable"
             android:required="true" />
 
-        <!-- Standalone flag (works without phone app) -->
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
-        <!-- Splash / Welcome screen as launcher -->
+        <!-- Existing launcher -->
         <activity
             android:name=".presentation.WelcomeActivity"
             android:exported="true"
@@ -47,18 +46,26 @@
             </intent-filter>
         </activity>
 
-        <!-- Main activity -->
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true"
             android:theme="@style/MainActivityTheme.Starting" />
 
-        <!-- BLE Activity -->
         <activity
             android:name=".presentation.ble.BLEActivity"
             android:exported="true"
             android:taskAffinity="" />
 
-    </application>
+        <activity
+            android:name=".presentation.WatchLocationActivity"
+            android:exported="true"
+            android:taskAffinity="">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
+
+    </application>
 </manifest>

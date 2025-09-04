@@ -23,17 +23,14 @@ class AssistanceLogsAdapter(private val logs: List<AssistanceLogModel>) :
 
     override fun onBindViewHolder(holder: LogViewHolder, position: Int) {
         val log = logs[position]
-
-        // Format timestamp
         val formattedTime = formatTimestamp(log.timestamp)
 
-        // Display log information
-        holder.logText.text = "$formattedTime: ${log.status} (Resolved: ${if (log.resolved) "Yes" else "No"})"
+        holder.logText.text =
+            "[Assistance Alert] $formattedTime - ${log.status} (Resolved: ${if (log.resolved) "Yes" else "No"})"
     }
 
     override fun getItemCount(): Int = logs.size
 
-    // 🔹 Helper function to format timestamp
     private fun formatTimestamp(timestamp: Long): String {
         val sdf = SimpleDateFormat("hh:mm a, MMM dd yyyy", Locale.getDefault())
         return sdf.format(Date(timestamp))
