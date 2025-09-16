@@ -1,98 +1,65 @@
 package com.safestride.wearos.presentation
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Looper
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import com.google.android.gms.location.*
-import com.google.android.gms.wearable.MessageClient
-import com.google.android.gms.wearable.NodeClient
-import com.google.android.gms.wearable.Wearable
-import com.safestride.safestride.shared.WearPaths
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
+import com.safestride.wearos.R
 
-class WatchLocationActivity : AppCompatActivity() {
+class WatchLocationActivity : ComponentActivity() {
 
-    private lateinit var fused: FusedLocationProviderClient
-    private lateinit var messageClient: MessageClient
-    private lateinit var nodeClient: NodeClient
-    private var phoneNodeId: String? = null
-    private var streaming = false
+    private lateinit var startBtn: Button
+    private lateinit var stopBtn: Button
+    private lateinit var statusText: TextView
 
-    private val callback = object : LocationCallback() {
-        override fun onLocationResult(result: LocationResult) {
-            val loc = result.lastLocation ?: return
-            val payload = "${loc.latitude},${loc.longitude}".toByteArray()
-            phoneNodeId?.let { id ->
-                messageClient.sendMessage(id, WearPaths.LOCATION, payload)
-            }
-        }
+    private val askFine = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) startStreaming() else toast("Location permission denied")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val btn = Button(this).apply { text = "Start streaming to phone" }
-        setContentView(btn)
+        setContentView(R.layout.activity_watch_location)
 
-        fused = LocationServices.getFusedLocationProviderClient(this)
-        messageClient = Wearable.getMessageClient(this)
-        nodeClient = Wearable.getNodeClient(this)
+        startBtn = findViewById(R.id.startButton)
+        stopBtn  = findViewById(R.id.stopButton)
+        statusText = findViewById(R.id.statusText)
 
-        // Resolve the connected phone once
-        CoroutineScope(Dispatchers.Main).launch {
-            phoneNodeId = nodeClient.connectedNodes.await()
-                .firstOrNull { it.isNearby }?.id
-            if (phoneNodeId == null) {
-                Toast.makeText(this@WatchLocationActivity, "No phone connected", Toast.LENGTH_SHORT).show()
-            }
+        startBtn.setOnClickListener {
+            val fine = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            if (fine == PackageManager.PERMISSION_GRANTED) startStreaming()
+            else askFine.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
+        stopBtn.setOnClickListener { stopStreaming() }
 
-        btn.setOnClickListener {
-            if (!streaming) startStreaming(btn) else stopStreaming(btn)
-        }
+        updateUi(false)
     }
 
-    private fun startStreaming(button: Button) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 100)
-            return
-        }
-        val req = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 5000)
-            .setMinUpdateIntervalMillis(2000)
-            .build()
-        fused.requestLocationUpdates(req, callback, Looper.getMainLooper())
-        streaming = true
-        button.text = "Stop streaming"
-        Toast.makeText(this, "Streaming GPS to phone…", Toast.LENGTH_SHORT).show()
+    private fun startStreaming() {
+        startService(Intent(this, WatchLocationService::class.java))
+        toast("Watch streaming started")
+        updateUi(true)
     }
 
-    private fun stopStreaming(button: Button) {
-        fused.removeLocationUpdates(callback)
-        streaming = false
-        button.text = "Start streaming to phone"
-        Toast.makeText(this, "Stopped", Toast.LENGTH_SHORT).show()
+    private fun stopStreaming() {
+        stopService(Intent(this, WatchLocationService::class.java))
+        toast("Watch streaming stopped")
+        updateUi(false)
     }
 
-    override fun onRequestPermissionsResult(code: Int, perms: Array<out String>, res: IntArray) {
-        super.onRequestPermissionsResult(code, perms, res)
-        if (code == 100 && res.isNotEmpty() && res[0] == PackageManager.PERMISSION_GRANTED) {
-            (window.decorView as? android.view.ViewGroup)?.getChildAt(0)?.let { v ->
-                if (v is Button) startStreaming(v)
-            }
-        }
+    private fun updateUi(streaming: Boolean) {
+        statusText.text = if (streaming) "Streaming…" else "Not streaming"
+        startBtn.isEnabled = !streaming
+        stopBtn.isEnabled = streaming
     }
 
-    override fun onDestroy() {
-        if (streaming) fused.removeLocationUpdates(callback)
-        super.onDestroy()
-    }
+    private fun toast(msg: String) =
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }

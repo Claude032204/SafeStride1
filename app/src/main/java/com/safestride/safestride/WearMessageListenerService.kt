@@ -18,17 +18,28 @@ class WearMessageListenerService : WearableListenerService() {
     private val db by lazy { FirebaseFirestore.getInstance() }
     private val auth by lazy { FirebaseAuth.getInstance() }
 
+    override fun onCreate() {
+        super.onCreate()
+        if (auth.currentUser == null) {
+            auth.signInAnonymously()
+                .addOnSuccessListener {
+                    Log.d("WearMsgSvc", "Firebase anon sign-in OK")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("WearMsgSvc", "Firebase anon sign-in failed: ${e.message}")
+                }
+        }
+    }
+
     override fun onMessageReceived(event: MessageEvent) {
-        val body = String(event.data ?: ByteArray(0), Charsets.UTF_8)
-        Log.d("WearMsgSvc", ">>> path=${event.path}, body=$body")
+        val body = String(event.data, Charsets.UTF_8)
+        Log.d("WearMsgSvc", "path=${event.path}, body=$body")
         Handler(Looper.getMainLooper()).post {
             Toast.makeText(this, "Wear msg: ${event.path}", Toast.LENGTH_SHORT).show()
         }
 
         when (event.path) {
-            // ✅ watch GPS -> Firestore (doc the map already listens to)
             WearPaths.LOCATION -> {
-                // body format: "lat,lng"
                 val p = body.split(",")
                 val lat = p.getOrNull(0)?.toDoubleOrNull()
                 val lng = p.getOrNull(1)?.toDoubleOrNull()
@@ -38,35 +49,30 @@ class WearMessageListenerService : WearableListenerService() {
                             mapOf(
                                 "lat" to lat,
                                 "lng" to lng,
-                                "ts"  to FieldValue.serverTimestamp()
+                                "ts" to FieldValue.serverTimestamp()
                             ),
                             SetOptions.merge()
                         )
-                } else {
-                    Log.w("WearMsgSvc", "Bad location payload: $body")
+                        .addOnSuccessListener {
+                            Log.d("WearMsgSvc", "Updated pwds/pwd1: ($lat,$lng)")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("WearMsgSvc", "Failed to update: ${e.message}")
+                        }
                 }
             }
 
-            // your existing alerts (unchanged)
             WearPaths.ALERT_RED -> {
                 NotificationHelper.showNotification(
                     this, "Emergency (RED)", "Immediate assistance requested. $body"
                 )
-                logToFirestore("emergencyLogs", "Emergency Alert! $body")
             }
             WearPaths.ALERT_YELLOW -> {
                 NotificationHelper.showNotification(
                     this, "Assistance (YELLOW)", "Check-in needed. $body"
                 )
-                logToFirestore("assistanceLogs", "Assistance Alert! $body")
             }
+            else -> super.onMessageReceived(event)
         }
-    }
-
-    private fun logToFirestore(collection: String, message: String) {
-        val uid = auth.currentUser?.uid ?: return
-        db.collection("notifications").document(uid)
-            .collection(collection)
-            .add(mapOf("message" to message, "timestamp" to System.currentTimeMillis()))
     }
 }
